@@ -17,16 +17,12 @@ La documentazione è organizzata secondo i seguenti moduli:
 
 ### Analisi dei Requisiti (Use Cases)
 Contiene l'analisi funzionale del sistema. Ogni documento descrive l'attore, il flusso principale e gli scenari alternativi.
-* **Formato:** `.puml` (PlantUML) per i diagrammi e `.md` per le specifiche testuali.
 
 ### Design (Wireframes)
 Rappresentazione visiva dei flussi utente e dei mockup di interfaccia.
-* **Formato:** `.png` / `.pdf` / `.fig` (o link a Figma).
 
 ### Architettura (C4 Model)
 Descrizione gerarchica dell'architettura del software utilizzando il modello C4.
-* **Livelli inclusi:** Context, Container, Component, Code.
 
 ### API (OpenAPI)
 Definizione formale degli endpoint dei microservizi.
-* **Formato:** `.yaml` o `.json`.
