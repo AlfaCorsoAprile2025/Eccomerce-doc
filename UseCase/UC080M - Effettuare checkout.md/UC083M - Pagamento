@@ -1,0 +1,43 @@
+# UC-08.3: ESECUZIONE DEL PAGAMENTO
+---
+**Attori coinvolti:**
+---
+A1: Utente
+
+A2: Gateway di Pagamento (Attore di Sistema - es. Stripe/PayPal)
+
+**Descrizione:**
+---
+Il processo tecnico di transazione monetaria dove il sistema interagisce con l'ente finanziario per autorizzare il trasferimento di fondi.
+
+**Precondizioni:**
+---
+L'utente ha confermato il metodo di pagamento (UC-08.2).
+
+Il sistema ha generato un ID transazione univoco.
+
+**Flusso Principale degli Eventi:**
+---
+1 - Il sistema reindirizza l'utente sulla pagina protetta del Gateway (A2) o apre un frame crittografato.
+
+2 - L'utente inserisce i dati sensibili (es. numero carta, CVV).
+
+3 - Il Gateway (A2) esegue la verifica (es. 3D Secure / OTP sul cellulare dell'utente).
+
+4 - Il Gateway elabora la transazione e invia un codice di esito (Success/Fail) al sistema ecommerce.
+
+5 - Il sistema riceve l'esito:
+
+6 - Se positivo: convalida l'ordine.
+
+7 - Se negativo: riporta l'utente alla selezione del pagamento.
+
+**Postcondizioni:**
+---
+In caso di successo, l'ordine passa allo stato "Pagato".
+
+In caso di fallimento, l'ordine rimane "In attesa" o "Annullato".
+
+**Note:**
+---
+Sicurezza: Tutti i dati passano attraverso protocollo HTTPS. Il sistema ecommerce non salva mai i dati della carta (PCI-DSS compliance).

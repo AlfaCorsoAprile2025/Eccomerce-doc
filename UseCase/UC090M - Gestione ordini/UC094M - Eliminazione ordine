@@ -1,0 +1,35 @@
+# UC094M: ELIMINAZIONE / ANNULLAMENTO ORDINE
+---
+**Attori coinvolti:**
+---
+A1: Utente (Cliente - Richiedente)
+
+A2: Amministratore (Admin - Esecutore)
+
+**Descrizione:**
+---
+L'annullamento di una transazione d'acquisto. Per motivi fiscali, spesso l'ordine non viene eliminato fisicamente dal DB ma il suo stato viene impostato su "Annullato".
+
+**Precondizioni:**
+---
+L'ordine è in uno stato che ne permette l'annullamento (es. "In attesa di pagamento" o "In lavorazione").
+
+**Flusso Principale degli Eventi:**
+---
+L'attore richiede l'annullamento dell'ordine.
+
+Il sistema verifica se la richiesta è ammissibile (policy sui tempi di recesso).
+
+Il sistema imposta lo stato dell'ordine su "Annullato".
+
+Il sistema ripristina automaticamente le quantità dei prodotti nel magazzino (Restock).
+
+Il sistema avvia la procedura di rimborso (se il pagamento era già stato acquisito).
+
+**Postcondizioni:**
+---
+L'ordine risulta annullato. Lo stock dei prodotti viene incrementato.
+
+**Note:**
+---
+Integrità Dati: Si consiglia di mantenere il record dell'ordine annullato per scopi di auditing e statistica, evitando la cancellazione fisica (Hard Delete).

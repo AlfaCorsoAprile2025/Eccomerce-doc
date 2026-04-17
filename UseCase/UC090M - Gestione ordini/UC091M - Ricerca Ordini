@@ -1,0 +1,31 @@
+# UC-091M: RICERCA E FILTRAGGIO ORDINI (LATO ADMIN)
+---
+**Attori coinvolti:**
+---
+A1: Utente 
+
+**Descrizione:**
+---
+L'amministratore necessita di individuare rapidamente uno o più ordini all'interno dell'intero database globale per scopi di assistenza clienti o gestione logistica.
+
+**Precondizioni:**
+---
+L'utente è autenticato e si trova nel pannello di gestione ordini.
+
+**Flusso Principale degli Eventi:**
+---
+1 - L'Admin inserisce un parametro di ricerca (ID Ordine, Email Cliente o Cognome).
+
+2 - L'Admin seleziona eventuali filtri di stato (es. "In attesa", "Annullato", "Spedito").
+
+3 - Il sistema esegue una query globale su tutti gli ordini presenti nel database.
+
+4 - Il sistema restituisce la lista degli ordini corrispondenti ai criteri.
+
+**Postcondizioni:**
+---
+L'Admin visualizza i risultati della ricerca e può procedere alla gestione del singolo ordine.
+
+**Note:**
+---
+Visibilità: A differenza dell'utente finale, l'Admin non ha restrizioni legate all'ID utente e può interrogare i dati di qualsiasi cliente registrato.

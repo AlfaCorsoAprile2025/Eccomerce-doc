@@ -1,0 +1,54 @@
+# UC060: LOGOUT (DISCONNESSIONE UTENTE)
+---
+**Attori coinvolti:**
+---
+A1: Utente Autenticato (Cliente o Amministratore)
+
+**Descrizione:**
+---
+L'utente desidera terminare la propria sessione di lavoro protetta per garantire la sicurezza del proprio account, specialmente se opera su dispositivi condivisi. Il sistema deve invalidare i token di accesso o le sessioni attive, impedendo ulteriori operazioni riservate senza una nuova autenticazione.
+
+**Precondizioni:**
+---
+L'utente deve essere correttamente autenticato nel sistema (UC-02).
+
+Il sistema deve avere una sessione attiva o un token (es. JWT o Cookie) valido.
+
+**Flusso Principale degli Eventi:**
+---
+
+L'utente clicca sul pulsante "Logout" o "Esci" presente nell'interfaccia (solitamente nel menu del profilo).
+
+Il sistema riceve la richiesta di disconnessione.
+
+Il sistema invalida la sessione lato server (es. distrugge i dati della sessione o inserisce il token in una blacklist).
+
+Il sistema cancella i cookie di autenticazione dal browser dell'utente.
+
+Il sistema reindirizza l'utente alla Home Page o alla pagina di Login.
+
+Il sistema mostra un messaggio di conferma dell'avvenuta disconnessione.
+
+**Postcondizioni:**
+---
+L'utente non è più autenticato (torna allo stato di Ospite).
+
+L'accesso alle aree riservate (Carrello salvato, Ordini, Profilo) è inibito.
+
+Eventuali token di persistenza ("Resta collegato") vengono distrutti se previsto dalla policy di sicurezza.
+
+**Varianti / Estensioni:**
+---
+V1: Logout Automatico (Timeout): Il sistema disconnette l'utente dopo un periodo di inattività predefinito (es. 30 minuti) per motivi di sicurezza.
+
+V2: Logout da tutti i dispositivi: L'utente seleziona un'opzione nel profilo per invalidare tutte le sessioni attive su diversi browser o dispositivi simultaneamente.
+
+**Eccezioni / Flussi alternativi:**
+---
+E1: Sessione già scaduta: L'utente clicca su logout ma la sessione è già terminata. Il sistema reindirizza comunque al login senza mostrare errori critici.
+
+**Note:**
+---
+Sicurezza: Dopo il logout, la pressione del tasto "Indietro" del browser non deve permettere la visualizzazione di dati sensibili precedentemente caricati (gestione della cache del browser).
+
+Regola di Business: Se l'utente era un "Ospite" che aveva effettuato il login, il carrello potrebbe dover essere gestito secondo la logica di persistenza definita in UC-07.2 (mantenere o svuotare il carrello locale).

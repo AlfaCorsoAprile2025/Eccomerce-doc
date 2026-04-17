@@ -1,0 +1,40 @@
+# UC-08.1: SELEZIONE INDIRIZZO DI SPEDIZIONE
+---
+**Attori coinvolti:**
+---
+
+A1: Utente (Registrato o Ospite)
+
+**Descrizione:**
+---
+L'utente specifica il luogo fisico dove desidera ricevere la merce. Il sistema deve convalidare l'indirizzo per permettere il calcolo corretto delle tariffe di spedizione e delle tasse.
+
+**Precondizioni:**
+---
+L'utente ha avviato la procedura di Checkout (UC-08).
+
+**Flusso Principale degli Eventi:**
+---
+Il sistema presenta un modulo per l'inserimento dei dati (Nome, Cognome, Indirizzo, CAP, Città, Provincia, Paese, Telefono).
+
+L'utente inserisce i dati richiesti.
+
+Il sistema verifica la validità del formato del CAP e la congruenza con la città.
+
+L'utente conferma l'indirizzo cliccando su "Continua".
+
+Il sistema salva temporaneamente l'indirizzo per il calcolo dei costi di spedizione.
+
+**Postcondizioni:**
+---
+L'indirizzo di spedizione è associato alla sessione di checkout corrente.
+
+**Varianti / Estensioni:**
+---
+V1: Selezione da Rubrica: Se l'utente è registrato, il sistema mostra un elenco di indirizzi usati precedentemente per una selezione rapida.
+
+V2: Indirizzo di fatturazione differente: L'utente può deselezionare l'opzione "Usa come indirizzo di fatturazione" e inserire un secondo set di dati.
+
+**Eccezioni / Flussi alternativi:**
+---
+E1: Area non servita: Il sistema rileva che l'indirizzo inserito non è raggiungibile dai corrieri convenzionati e blocca il processo chiedendo un nuovo indirizzo.

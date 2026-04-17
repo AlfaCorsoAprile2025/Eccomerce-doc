@@ -1,0 +1,33 @@
+# UC-08.2: SELEZIONE METODO DI PAGAMENTO
+---
+**Attori coinvolti:**
+---
+A1: Utente (Registrato o Ospite)
+
+**Descrizione:**
+---
+L'utente sceglie lo strumento finanziario con cui intende saldare l'importo totale dell'ordine.
+
+**Precondizioni:**
+---
+L'utente ha completato la selezione della spedizione.
+
+Il sistema ha visualizzato il totale finale dell'ordine.
+
+**Flusso Principale degli Eventi:**
+---
+Il sistema visualizza l'elenco dei metodi di pagamento disponibili (es. Carta di Credito, PayPal, Bonifico Bancario, Contrassegno).
+
+L'utente seleziona l'opzione preferita.
+
+Il sistema visualizza eventuali costi aggiuntivi legati al metodo (es. commissioni per contrassegno).
+
+L'utente accetta i termini di pagamento e clicca su "Procedi al Pagamento".
+
+**Postcondizioni:**
+---
+Il metodo di pagamento è impostato e il sistema è pronto a contattare il gateway esterno.
+
+**Eccezioni / Flussi alternativi:**
+---
+E1: Metodo non disponibile: Alcuni metodi (es. Contrassegno) potrebbero essere disabilitati per ordini sopra una certa cifra o per specifiche aree geografiche.
