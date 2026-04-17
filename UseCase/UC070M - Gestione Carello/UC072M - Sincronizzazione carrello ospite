@@ -1,0 +1,48 @@
+# UC-072: SINCRONIZZAZIONE CARRELLO POST-REGISTRAZIONE (MERGE)
+---
+**Attori coinvolti:**
+---
+A1: Utente Registrato
+
+**Descrizione:**
+---
+L'utente che ha navigato e aggiunto prodotti come Ospite decide di registrarsi o effettuare il login. Il sistema deve garantire che i prodotti scelti durante la sessione anonima vengano trasferiti e uniti al carrello salvato nel profilo utente appena creato o autenticato.
+
+**Precondizioni:**
+---
+L'utente ha aggiunto prodotti al carrello come Ospite (Guest Cart).
+
+L'utente completa con successo la registrazione (UC-01) o il login (UC-02).
+
+**Flusso Principale degli Eventi:**
+---
+1 - Il sistema rileva la transizione da stato "Ospite" a stato "Autenticato".
+
+2 - Il sistema recupera l'identificativo del carrello temporaneo (Session ID).
+
+3 - Il sistema interroga il database per verificare se l'utente ha già un carrello salvato da sessioni precedenti (Stored Cart).
+
+4 - Il sistema esegue il Merge (unione) dei due carrelli:
+
+5 - Se un prodotto è presente solo nel Guest Cart, viene aggiunto al profilo.
+
+6 - Se un prodotto è presente in entrambi, il sistema somma le quantità (verificando lo stock).
+
+7 - Il sistema invalida il carrello temporaneo della sessione ospite.
+
+8 - Il sistema reindirizza l'utente alla pagina del carrello aggiornata.
+
+**Postcondizioni:**
+---
+Tutti i prodotti selezionati prima dell'autenticazione sono ora associati permanentemente all'account dell'utente.
+
+**Varianti / Estensioni:**
+---
+V1: Conflitto di Varianti: Se l'utente ha la stessa maglietta nel carrello ospite e nel carrello registrato ma con taglie diverse, il sistema le visualizza come due righe distinte nel carrello finale.
+
+**Eccezioni / Flussi alternativi:**
+---
+E1: Superamento Stock dopo Merge: Se la somma delle quantità (Ospite + Registrato) supera la disponibilità a magazzino, il sistema imposta la quantità al valore massimo consentito e avvisa l'utente con una notifica.
+
+**Note:**
+---

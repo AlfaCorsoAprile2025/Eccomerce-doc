@@ -1,0 +1,53 @@
+# UC-02: LOGIN (AUTENTICAZIONE UTENTE)
+
+**Attori coinvolti:**
+--
+A1: Utente non loggato (Cliente / Admin)
+
+**Descrizione:**
+---
+L'utente che possiede già un account desidera accedere al sistema per gestire il proprio profilo, consultare i propri dati. Il sistema deve verificare l'identità dell'utente tramite credenziali.
+
+**Precondizioni:**
+---
+L'utente deve possedere un account già creato e attivo nel sistema.
+
+L'utente deve trovarsi sulla pagina di accesso (Login).
+
+**Flusso Principale degli Eventi:**
+---
+1 - L'utente inserisce la propria Email e la Password nel modulo di login.
+
+2 - L'utente clicca sul pulsante "Accedi".
+
+3 - Il sistema recupera l'account associato all'email inserita.
+
+4 - Il sistema verifica che l'account non sia bloccato
+
+5 - Il sistema confronta l'hash della password inserita con quello memorizzato nel database.
+
+6 - Il sistema crea una sessione sicura (o genera un token JWT) per l'utente.
+
+7 - Il sistema reindirizza l'utente alla Dashboard o alla pagina da cui proveniva.
+
+**Postcondizioni:**
+---
+L'utente è autenticato nel sistema.
+
+La sessione di navigazione è associata all'identità dell'utente.
+
+Viene aggiornata la data di "Ultimo accesso" nel profilo utente.
+
+**Varianti / Estensioni:**
+---
+V1: "Resta collegato": Se l'utente seleziona la checkbox apposita, il sistema genera un token di persistenza per evitare il login alle visite successive.
+
+**Eccezioni / Flussi alternativi:**
+---
+E1: Credenziali errate: Se l'email non esiste o la password non corrisponde, il sistema mostra un messaggio di errore generico (per sicurezza non specifica quale dei due campi è errato).
+
+E2: Account bloccato: Se l'account è stato disabilitato da un amministratore, il sistema nega l'accesso.
+
+**Note:**
+---
+Sicurezza: Dopo un numero definito di tentativi falliti (es. 5), il sistema deve bloccare temporaneamente l'accesso per quell'email o richiedere un CAPTCHA per prevenire attacchi brute-force.

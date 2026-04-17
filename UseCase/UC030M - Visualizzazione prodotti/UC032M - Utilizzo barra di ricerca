@@ -1,0 +1,37 @@
+# UC-03.2: UTILIZZO BARRA DI RICERCA
+---
+**Attori coinvolti:**
+---
+A1: Utente (Ospite o Registrato)
+
+**Descrizione:**
+---
+L'utente inserisce una stringa di testo libera per trovare prodotti che corrispondano nel nome, nella descrizione o nei tag.
+
+**Precondizioni:**
+---
+1 - La barra di ricerca è visibile e attiva nell'header del sito.
+
+2 - Flusso Principale degli Eventi:**
+
+3 - L'utente clicca sulla barra di ricerca e digita del testo.
+
+4 - Il sistema esegue una query di ricerca (spesso di tipo LIKE o Full-text search).
+
+5 - L'utente preme "Invio" o clicca sull'icona della lente.
+
+6 - Il sistema reindirizza l'utente alla pagina dei risultati di ricerca.
+
+7 - Il sistema evidenzia (opzionale) la parola chiave nei risultati trovati.
+
+**Postcondizioni:**
+---
+Il sistema mostra i prodotti ordinati per "rilevanza" rispetto alla stringa inserita.
+
+**Varianti / Estensioni:**
+---
+V1: Suggerimenti Live: Il sistema mostra un menu a tendina con anteprime di prodotti mentre l'utente sta ancora scrivendo.
+
+**Eccezioni / Flussi alternativi:**
+---
+E1: Stringa troppo corta: L'utente inserisce solo 1 carattere; il sistema non avvia la ricerca per evitare sovraccarico.

@@ -1,0 +1,47 @@
+# UC-02.V1: LOGIN CON OPZIONE "RESTA COLLEGATO"
+
+**Attori coinvolti:**
+---
+A1: Utente Registrato (Cliente / Admin)
+
+**Descrizione:**
+---
+L'utente desidera accedere al sistema evitando di dover reinserire le proprie credenziali in occasione di visite future dallo stesso dispositivo. Il sistema deve generare un meccanismo di persistenza della sessione a lungo termine.
+
+**Precondizioni:**
+---
+L'utente si trova nella pagina di Login.
+
+L'utente ha inserito correttamente Email e Password.
+
+I cookie sono abilitati nel browser dell'utente.
+
+**Flusso Principale degli Eventi:**
+---
+L'utente seleziona la checkbox "Resta collegato" (o "Ricordami").
+
+L'utente clicca sul pulsante "Accedi".
+
+Il sistema valida le credenziali (come nel flusso principale di UC-02).
+
+Il sistema genera un token di persistenza univoco e sicuro.
+
+Il sistema salva il token nel database associandolo all'utente e lo invia al browser tramite un cookie "identificativo" a lunga scadenza (es. 30 giorni).
+
+Il sistema reindirizza l'utente alla pagina principale.
+
+**Postcondizioni:**
+---
+L'utente è autenticato.
+
+Al termine della sessione corrente del browser, l'utente non dovrà rifare il login alla visita successiva finché il cookie non scade o viene rimosso.
+
+**Varianti / Estensioni:**
+---
+**Eccezioni / Flussi alternativi:**
+---
+E1: Dispositivo pubblico: Se l'utente attiva l'opzione su un dispositivo non privato, la sicurezza dell'account è compromessa (nota informativa solitamente presente nel sistema).
+
+**Note:**
+---
+Per ragioni di sicurezza, le operazioni critiche (es. cambio password o modifica dati di pagamento) dovrebbero comunque richiedere la password anche se il login è persistente.

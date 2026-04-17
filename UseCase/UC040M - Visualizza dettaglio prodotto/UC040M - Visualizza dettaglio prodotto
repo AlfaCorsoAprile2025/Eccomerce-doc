@@ -1,0 +1,51 @@
+# UC-04: VISUALIZZA DETTAGLIO PRODOTTO
+---
+**Attori coinvolti:**
+---
+A1: Utente (Ospite o Registrato)
+
+**Descrizione:**
+---
+L'utente desidera approfondire le informazioni su un articolo specifico selezionato dal catalogo o dai risultati di ricerca. Il sistema deve presentare una scheda tecnica completa, immagini, prezzo aggiornato, varianti disponibili e recensioni, al fine di supportare l'utente nella decisione d'acquisto.
+
+**Precondizioni:**
+---
+L'utente ha individuato un prodotto di interesse nel catalogo (UC-030) o tramite ricerca (UC-030V2).
+
+Il prodotto selezionato è presente nel database ed è disponibile.
+
+**Flusso Principale degli Eventi:**
+---
+1 - L'utente clicca sull'anteprima di un prodotto (immagine o nome).
+
+2 - Il sistema recupera dal database tutti i dati relativi al prodotto (ID, Titolo, Descrizione, Prezzo, Immagini, Specifiche Tecniche, Varianti).
+
+3 - Il sistema verifica la disponibilità attuale a magazzino.
+
+5 - Il sistema visualizza la pagina di dettaglio mostrando:
+
+6 - Galleria immagini.
+
+7 - Informazioni principali (Nome, Brand, Prezzo, Disponibilità).
+
+9 - Descrizione estesa e schede tecniche.
+
+10 - Visualizza Pulsante "Aggiungi al carrello".
+
+**Postcondizioni:**
+---
+L'utente visualizza tutte le informazioni necessarie per valutare l'acquisto.
+
+Il sistema è pronto a ricevere il comando di inserimento nel carrello (UC-05).
+
+**Varianti / Estensioni:**
+---
+
+**Eccezioni / Flussi alternativi:**
+---
+E1: Prodotto non trovato: Se l'ID del prodotto nell'URL non è valido o il prodotto è stato rimosso, il sistema mostra una pagina di errore 404 con un suggerimento per tornare al catalogo.
+
+E2: Prodotto Esaurito: Se lo stock è zero, il pulsante "Aggiungi al carrello" viene disabilitato o sostituito da "Avvisami quando disponibile".
+
+**Note:**
+---

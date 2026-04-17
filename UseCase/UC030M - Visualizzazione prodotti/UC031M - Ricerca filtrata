@@ -1,0 +1,36 @@
+# UC-03.1: FILTRAGGIO RICERCA
+---
+**Attori coinvolti:**
+---
+A1: Utente (Ospite o Registrato)
+
+**Descrizione:**
+---
+L'utente affina la lista dei prodotti visualizzati selezionando attributi specifici trovare esattamente ciò che desidera.
+
+**Precondizioni**:
+---
+L'utente si trova in una pagina con una lista di prodotti (Risultati ricerca o Categoria).
+
+**Flusso Principale degli Eventi:**
+---
+1 - L'utente interagisce con il menu dei filtri.
+
+2 - L'utente seleziona uno o più valori per un attributo 
+
+3 - Il sistema invia una richiesta al database includendo i parametri selezionati.
+
+4 - Il sistema ricalcola la lista dei prodotti e aggiorna la vista al click su "Applica".
+
+**Postcondizioni:**
+---
+La lista prodotti mostra solo gli articoli che soddisfano tutti i criteri di filtro attivi.
+
+**Varianti / Estensioni:**
+---
+V1: Rimozione filtro singolo: L'utente deseleziona un singolo attributo per riallargare la ricerca.
+
+V2: Reset totale: L'utente clicca su "Pulisci filtri" per tornare alla visualizzazione originale.
+
+**Eccezioni / Flussi alternativi:**
+---
