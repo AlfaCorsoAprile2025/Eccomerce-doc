@@ -6,7 +6,7 @@ A1: Utente non loggato (Cliente / Admin)
 
 **Descrizione:**
 ---
-L'utente che possiede già un account desidera accedere al sistema per gestire il proprio profilo, consultare i propri dati. Il sistema deve verificare l'identità dell'utente tramite credenziali.
+L'utente che possiede già un account desidera accedere al sistema. Il sistema deve verificare l'identità dell'utente tramite credenziali.
 
 **Precondizioni:**
 ---
@@ -42,11 +42,70 @@ Viene aggiornata la data di "Ultimo accesso" nel profilo utente.
 ---
 V1: "Resta collegato": Se l'utente seleziona la checkbox apposita, il sistema genera un token di persistenza per evitare il login alle visite successive.
 
+V2: "Crea Account": L'utente può selezionare crea account e viene ridirezionato a UC010M
+
 **Eccezioni / Flussi alternativi:**
 ---
-E1: Credenziali errate: Se l'email non esiste o la password non corrisponde, il sistema mostra un messaggio di errore generico (per sicurezza non specifica quale dei due campi è errato).
+### E1 Email non esistente:
+    L'eccezione si verifica al punto 3 del flusso principale.
 
-E2: Account bloccato: Se l'account è stato disabilitato da un amministratore, il sistema nega l'accesso.
+    E1.1 Il sistema verifica che l'email inserita non è presente nel database.
+
+    E1.2 Il sistema visualizza un messaggio di errore generico (es: "Credenziali non valide").
+
+    Il flusso torna al punto 1 del flusso principale.
+
+### E2 Password errata:
+    L'eccezione si verifica al punto 5 del flusso principale.
+
+    E2.1 Il sistema rileva che l'hash della password inserita non corrisponde a quello memorizzato.
+
+    E2.2 Il sistema incrementa il contatore dei tentativi falliti per quell'account.
+
+    E2.3 Il sistema visualizza un messaggio di errore generico (es: "Credenziali non valide").
+
+    Il flusso torna al punto 1 del flusso principale.
+
+### E3 Account bloccato:
+    L'eccezione si verifica al punto 4 del flusso principale.
+
+    E3.1 Il sistema rileva che lo stato dell'account nel database è impostato su "Bloccato" o "Disabilitato".
+
+    E3.2 Il sistema visualizza un messaggio specifico ("Account bloccato. Contattare l'assistenza").
+
+    Il caso d'uso termina con insuccesso.
+
+### E4 Troppi tentativi falliti (Brute-force protection):
+    L'eccezione si attiva al punto 2 o 5 del flusso principale, quando il contatore dei tentativi falliti supera la soglia di sicurezza.
+
+    5 - Il sistema rileva che la password inserita è errata.
+
+    E4.1 - Il sistema incrementa il contatore dei tentativi falliti nel database per quell'indirizzo IP o account.
+
+    E4.2 - Il sistema rileva che il numero di tentativi ha raggiunto il limite massimo (es. 5 tentativi).
+
+    E4.3 - Il sistema imposta temporaneamente lo stato dell'account su "Sospeso" o attiva un blocco temporale (es. 15 minuti).
+
+    E4.4 - Il sistema visualizza un messaggio di errore specifico ("Troppi tentativi falliti. L'accesso è temporaneamente bloccato per motivi di sicurezza").
+
+    E4.5 - (Opzionale) Il sistema abilita la visualizzazione di un CAPTCHA per i tentativi successivi.
+
+    Il caso d'uso termina con insuccesso.
+
+### E5 Account non verificato (In attesa di OTP):
+    L'eccezione si verifica al punto 4 del flusso principale, durante il controllo dello stato account.
+
+    4 - Il sistema verifica lo stato dell'account recuperato.
+
+    E5.1 - Il sistema rileva che l'account ha lo stato "In attesa di verifica" (UC-01).
+
+    E5.2 - Il sistema interrompe la creazione della sessione al punto 6.
+
+    E5.3 - Il sistema visualizza un messaggio informativo ("L'account non è ancora stato verificato. Inserisci il codice inviato via email").
+
+    E5.4 - Il sistema reindirizza l'utente automaticamente al form di inserimento OTP (UC-01 punto 10).
+
+    Il caso d'uso si collega al flusso di verifica di UC-01.
 
 **Note:**
 ---

@@ -10,7 +10,7 @@ L'utente desidera eliminare un articolo precedentemente inserito nel carrello pe
 
 **Precondizioni:**
 ---
-L'utente si trova nella pagina "Carrello" (UC-07).
+L'utente si trova nella pagina "Carrello" (UC-070).
 
 È presente almeno un prodotto nel carrello.
 
@@ -32,16 +32,22 @@ L'utente si trova nella pagina "Carrello" (UC-07).
 ---
 Il prodotto non è più visibile nel carrello.
 
-Il database o la sessione vengono aggiornati con la rimozione permanente del record.
+Il totale del carrello è aggiornato
 
 **Varianti / Estensioni:**
 ---
-V1: Annulla Rimozione: Immediatamente dopo l'eliminazione, il sistema mostra un messaggio "Prodotto rimosso" con un tasto "Annulla" per ripristinare l'articolo.
-
 **Eccezioni / Flussi alternativi:**
 ---
-E1: Rimozione ultimo prodotto: Se l'utente rimuove l'ultimo articolo presente, il sistema attiva automaticamente la variante V2 del caso d'uso principale (UC-070V2: Carrello vuoto).
+### E1 Rimozione ultimo prodotto:
+    L'eccezione si verifica al termine del punto 4 del flusso principale, quando il sistema rileva che non vi sono più articoli associati al carrello.
+
+    4 - Il sistema elimina l'associazione tra l'articolo e la sessione/profilo dell'utente.
+
+    E1.1 - Il sistema esegue un controllo sul numero di articoli residui nel carrello.
+
+    E1.2 - Il sistema rileva che il conteggio degli articoli è pari a zero.
+
+    Il caso d'uso termina con il reindirizzamento a UC070V2
 
 **Note:**
 ---
-Se il prodotto rimosso aveva delle varianti specifiche (es. Taglia L), solo quella specifica combinazione viene rimossa, lasciando invariate eventuali altre varianti dello stesso prodotto presenti nel carrello.

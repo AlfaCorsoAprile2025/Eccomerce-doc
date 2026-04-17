@@ -28,9 +28,61 @@ La lista prodotti mostra solo gli articoli che soddisfano tutti i criteri di fil
 
 **Varianti / Estensioni:**
 ---
-V1: Rimozione filtro singolo: L'utente deseleziona un singolo attributo per riallargare la ricerca.
+### V1 Rimozione filtro singolo:
+    La variante si verifica tipicamente dopo che il flusso principale è stato completato almeno una volta.
 
-V2: Reset totale: L'utente clicca su "Pulisci filtri" per tornare alla visualizzazione originale.
+    1 - L'utente individua un filtro attivo nel riepilogo o nel menu laterale.
+
+    V1.1 L'utente deseleziona il valore dell'attributo (es. rimuove il check su "Rosso") o clicca sulla "X" accanto al tag del filtro.
+
+    V1.2 Il sistema rimuove il parametro specifico dalla query di ricerca.
+
+    V1.3 Il sistema ricalcola la lista dei prodotti includendo nuovamente gli articoli precedentemente esclusi da quel filtro.
+
+    V1.4 Il sistema aggiorna la vista e il conteggio degli altri filtri disponibili.
+
+    Il flusso torna al punto 4 del flusso principale.
+
+### V2 Reset totale (Pulisci filtri):
+    La variante può essere attivata in qualsiasi momento dopo l'applicazione di uno o più filtri.
+
+    1 - L'utente clicca sul pulsante "Pulisci filtri" o "Reset".
+
+    V2.1 Il sistema cancella istantaneamente tutti i parametri di filtraggio selezionati dall'utente.
+
+    V2.2 Il sistema ripristina i valori di default (es. nessuna categoria selezionata, range di prezzo massimo).
+
+    V2.3 Il sistema ricarica la lista prodotti originale (quella mostrata al punto 2 del UC-03).
+
+    V2.4 Il sistema riporta l'interfaccia dei filtri allo stato iniziale.
+
+    Il flusso torna al punto 1 del flusso principale.
 
 **Eccezioni / Flussi alternativi:**
 ---
+
+### E1 Combinazione filtri senza risultati:
+    L'eccezione si verifica al punto 4 del flusso principale quando l'incrocio dei filtri selezionati è troppo restrittivo.
+
+    2 - L'utente seleziona uno o più valori per gli attributi (es. Colore: "Verde" e Taglia: "XXL").
+
+    4 - L'utente clicca sul tasto "Applica".
+
+    E1.1 Il sistema interroga il database e rileva che nessun prodotto soddisfa contemporaneamente tutti i criteri selezionati.
+
+    E1.2 Il sistema visualizza un messaggio di avviso ("Nessun prodotto trovato per questa combinazione di filtri").
+
+    E1.3 Il sistema evidenzia i filtri attivi e suggerisce di rimuoverne alcuni o cliccare su "Pulisci filtri".
+
+    Il flusso torna al punto 1 del flusso principale.
+
+### E4 Timeout durante l'aggiornamento della vista:
+    L'eccezione si verifica al punto 4 dopo il click su "Applica".
+
+    4 - L'utente clicca sul tasto "Applica".
+
+    E4.1 Il sistema invia la richiesta ma il database non risponde entro i tempi prestabiliti (es. catalogo troppo vasto o sovraccarico).
+
+    E4.2 Il sistema mostra un'animazione di caricamento (spinner) che termina con un messaggio di errore ("Tempo scaduto, riprova ad applicare i filtri").
+
+    Il flusso torna al punto 4 del flusso principale (permettendo di cliccare nuovamente).

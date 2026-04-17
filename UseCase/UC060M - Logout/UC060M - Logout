@@ -17,17 +17,17 @@ Il sistema deve avere una sessione attiva o un token (es. JWT o Cookie) valido.
 **Flusso Principale degli Eventi:**
 ---
 
-L'utente clicca sul pulsante "Logout" o "Esci" presente nell'interfaccia (solitamente nel menu del profilo).
+1 - L'utente clicca sul pulsante "Logout" o "Esci" presente nell'interfaccia (solitamente nel menu del profilo).
 
-Il sistema riceve la richiesta di disconnessione.
+2 - Il sistema riceve la richiesta di disconnessione.
 
-Il sistema invalida la sessione lato server (es. distrugge i dati della sessione o inserisce il token in una blacklist).
+3 - Il sistema invalida la sessione lato server (es. distrugge i dati della sessione o inserisce il token in una blacklist).
 
-Il sistema cancella i cookie di autenticazione dal browser dell'utente.
+4 - Il sistema cancella i cookie di autenticazione dal browser dell'utente.
 
-Il sistema reindirizza l'utente alla Home Page o alla pagina di Login.
+5 - Il sistema reindirizza l'utente alla Home Page o alla pagina di Login.
 
-Il sistema mostra un messaggio di conferma dell'avvenuta disconnessione.
+6 - Il sistema mostra un messaggio di conferma dell'avvenuta disconnessione.
 
 **Postcondizioni:**
 ---
@@ -39,16 +39,26 @@ Eventuali token di persistenza ("Resta collegato") vengono distrutti se previsto
 
 **Varianti / Estensioni:**
 ---
-V1: Logout Automatico (Timeout): Il sistema disconnette l'utente dopo un periodo di inattività predefinito (es. 30 minuti) per motivi di sicurezza.
-
-V2: Logout da tutti i dispositivi: L'utente seleziona un'opzione nel profilo per invalidare tutte le sessioni attive su diversi browser o dispositivi simultaneamente.
 
 **Eccezioni / Flussi alternativi:**
 ---
-E1: Sessione già scaduta: L'utente clicca su logout ma la sessione è già terminata. Il sistema reindirizza comunque al login senza mostrare errori critici.
+ ### E1 Sessione già scaduta o non valida:
+
+    L'eccezione si verifica al punto 2 del flusso principale, quando il sistema tenta di elaborare la richiesta su una sessione che è già stata invalidata per timeout o cancellazione manuale dei cookie.
+
+    1 - L'utente clicca sul pulsante "Logout" o "Esci".
+
+    E1.1 - Il sistema riceve la richiesta e tenta di individuare l'ID sessione o il token associato.
+
+    E1.2 - Il sistema rileva che la sessione non esiste più sul server o che il token è già scaduto.
+
+    E1.3 - Il sistema salta i passaggi di invalidazione (punto 3) e cancellazione cookie (punto 4) poiché non necessari.
+
+    E1.4 - Il sistema procede direttamente al reindirizzamento dell'utente verso la pagina di Login.
+
+    E1.5 - Il sistema mostra un messaggio informativo (es: "Sessione scaduta, effettua nuovamente l'accesso").
+
+    VEDERE UC020M
 
 **Note:**
 ---
-Sicurezza: Dopo il logout, la pressione del tasto "Indietro" del browser non deve permettere la visualizzazione di dati sensibili precedentemente caricati (gestione della cache del browser).
-
-Regola di Business: Se l'utente era un "Ospite" che aveva effettuato il login, il carrello potrebbe dover essere gestito secondo la logica di persistenza definita in UC-07.2 (mantenere o svuotare il carrello locale).

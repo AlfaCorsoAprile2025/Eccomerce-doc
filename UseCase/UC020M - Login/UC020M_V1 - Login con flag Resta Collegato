@@ -18,17 +18,17 @@ I cookie sono abilitati nel browser dell'utente.
 
 **Flusso Principale degli Eventi:**
 ---
-L'utente seleziona la checkbox "Resta collegato" (o "Ricordami").
+1 - L'utente seleziona la checkbox "Resta collegato" (o "Ricordami").
 
-L'utente clicca sul pulsante "Accedi".
+2 - L'utente clicca sul pulsante "Accedi".
 
-Il sistema valida le credenziali (come nel flusso principale di UC-02).
+3 - Il sistema valida le credenziali (come nel flusso principale di UC-02).
 
-Il sistema genera un token di persistenza univoco e sicuro.
+4 - Il sistema genera un token di persistenza univoco e sicuro.
 
-Il sistema salva il token nel database associandolo all'utente e lo invia al browser tramite un cookie "identificativo" a lunga scadenza (es. 30 giorni).
+5 - Il sistema salva il token nel database associandolo all'utente e lo invia al browser tramite un cookie "identificativo" a lunga scadenza (es. 30 giorni).
 
-Il sistema reindirizza l'utente alla pagina principale.
+6 - Il sistema reindirizza l'utente alla pagina principale UC030M
 
 **Postcondizioni:**
 ---
@@ -40,7 +40,6 @@ Al termine della sessione corrente del browser, l'utente non dovrà rifare il lo
 ---
 **Eccezioni / Flussi alternativi:**
 ---
-E1: Dispositivo pubblico: Se l'utente attiva l'opzione su un dispositivo non privato, la sicurezza dell'account è compromessa (nota informativa solitamente presente nel sistema).
 
 **Note:**
 ---

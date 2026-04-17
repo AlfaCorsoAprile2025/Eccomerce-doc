@@ -15,26 +15,49 @@ L'utente ha avviato la procedura di Checkout (UC-08).
 
 **Flusso Principale degli Eventi:**
 ---
-Il sistema presenta un modulo per l'inserimento dei dati (Nome, Cognome, Indirizzo, CAP, Città, Provincia, Paese, Telefono).
+1 - Il sistema presenta un modulo per l'inserimento dei dati (Nome, Cognome, Indirizzo, CAP, Città, Provincia, Paese, Telefono).
 
-L'utente inserisce i dati richiesti.
+2 - L'utente inserisce i dati richiesti.
 
-Il sistema verifica la validità del formato del CAP e la congruenza con la città.
+3 - Il sistema verifica la validità del formato del CAP e la congruenza con la città.
 
-L'utente conferma l'indirizzo cliccando su "Continua".
+4 - L'utente conferma l'indirizzo cliccando su "Continua".
 
-Il sistema salva temporaneamente l'indirizzo per il calcolo dei costi di spedizione.
 
 **Postcondizioni:**
 ---
 L'indirizzo di spedizione è associato alla sessione di checkout corrente.
 
+L'indirizzo di spedizione viene salvato a db
+
 **Varianti / Estensioni:**
 ---
-V1: Selezione da Rubrica: Se l'utente è registrato, il sistema mostra un elenco di indirizzi usati precedentemente per una selezione rapida.
+### V1 Selezione da Rubrica (Indirizzi Salvati):
+    Questa variante si attiva all'inizio del caso d'uso (punto 1) per gli utenti che hanno effettuato l'accesso (UC-02).
 
-V2: Indirizzo di fatturazione differente: L'utente può deselezionare l'opzione "Usa come indirizzo di fatturazione" e inserire un secondo set di dati.
+    1 - Il sistema presenta il modulo di inserimento dati.
+
+    V1.1 - Il sistema rileva che l'utente è autenticato e recupera dal profilo la lista degli indirizzi salvati (es. "Casa", "Ufficio", "Residenza").
+
+    V1.2 - Il sistema mostra un componente grafico (es. carosello o lista radio) con le anteprime degli indirizzi registrati.
+
+    V1.3 - L'utente seleziona uno degli indirizzi esistenti.
+
+    V1.4 - Il sistema popola automaticamente tutti i campi del modulo descritti al punto 1, saltando la necessità di inserimento manuale al punto 2.
+
+    V1.5 - L'utente può procedere direttamente al punto 4 per la conferma, oppure modificare un singolo campo dell'indirizzo selezionato (es. cambiare il numero di telefono solo per questa spedizione).
+
+    Il flusso prosegue regolarmente al punto 4.
 
 **Eccezioni / Flussi alternativi:**
 ---
-E1: Area non servita: Il sistema rileva che l'indirizzo inserito non è raggiungibile dai corrieri convenzionati e blocca il processo chiedendo un nuovo indirizzo.
+### E1 Dati obbligatori mancanti o errati:
+    L'eccezione si verifica al momento del click sulla conferma (punto 4).
+
+    4 - L'utente conferma l'indirizzo cliccando su "Continua".
+
+    E2.1 - Il sistema rileva che uno o più campi obbligatori (es. Telefono o CAP) sono vuoti o contengono caratteri non validi.
+
+    E2.2 - Il sistema evidenzia in rosso i campi errati e mostra un messaggio di avviso ("Controlla i campi contrassegnati").
+
+    Il flusso torna al punto 2 per la correzione dei dati.

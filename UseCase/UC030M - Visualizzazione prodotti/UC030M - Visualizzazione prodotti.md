@@ -22,7 +22,7 @@ L'utente deve essere connesso alla piattaforma (Home Page o pagina Catalogo).
 
 3 - L'utente inserisce una parola chiave nella barra di ricerca e/o seleziona una categoria merceologica.
 
-4 - Il sistema aggiorna la vista mostrando solo i prodotti che corrispondono ai criteri inseriti.
+4 - Il sistema aggiorna la vista mostrando solo i prodotti che corrispondono ai criteri inseriti e che non sono nascosti.
 
 5 - L'utente applica uno o più filtri (es. fascia di prezzo, marca, taglia, colore, disponibilità).
 
@@ -44,11 +44,43 @@ V1: Filtri Dinamici: I filtri cambiano in base alla categoria scelta
 
 **Eccezioni / Flussi alternativi:**
 ---
-E1: Nessun risultato trovato: Se la ricerca o i filtri non producono corrispondenze, il sistema mostra un messaggio "Nessun prodotto trovato" e suggerisce di modificare i criteri o mostra prodotti alternativi.
+### E1 Nessun risultato trovato:
 
-E2: Errore di connessione: Se il sistema non riesce a recuperare i dati dal database, mostra un messaggio di errore tecnico e invita a ricaricare la pagina.
+    L'eccezione si verifica ai punti 4 o 6 del flusso principale, a seguito di una ricerca o dell'applicazione di filtri troppo restrittivi.
+
+    3/5 - L'utente inserisce una parola chiave o applica dei filtri.
+
+    E1.1 Il sistema interroga il database e rileva che non esistono prodotti corrispondenti ai criteri inseriti.
+
+    E1.2 Il sistema visualizza un messaggio di avviso ("Nessun prodotto trovato per i criteri selezionati").
+
+    E1.3 Il sistema mostra un pulsante "Resetta filtri" o suggerisce prodotti simili/popolari per non interrompere la navigazione.
+
+    Il flusso torna al punto 3 o 5 del flusso principale.
+
+### E2 Errore di connessione / Timeout Database:
+    L'eccezione può verificarsi in qualsiasi punto in cui il sistema deve recuperare dati (punti 2, 4, 6).
+
+    1/3/5 - L'utente tenta di accedere al catalogo o aggiornare la vista.
+
+    E2.1 Il sistema rileva un'interruzione della connessione con il database o un tempo di risposta superiore al limite (timeout).
+
+    E2.2 Il sistema visualizza un messaggio di errore tecnico ("Spiacenti, si è verificato un errore nel caricamento dei prodotti. Riprova tra poco").
+
+    E2.3 Il sistema fornisce un pulsante "Ricarica pagina".
+
+    Il caso d'uso termina con insuccesso o torna al punto iniziale dopo il refresh.
+
+### E3 Stringa di ricerca non valida:
+    L'eccezione si verifica al punto 3 del flusso principale.
+
+    3 - L'utente inserisce una stringa composta solo da caratteri speciali o troppo breve (es. meno di 2 caratteri).
+
+    E3.1 Il sistema rileva che la stringa non è idonea per una ricerca efficace.
+
+    E3.2 Il sistema non avvia la query e visualizza un suggerimento sotto la barra di ricerca ("Inserisci almeno 2 caratteri per la ricerca").
+
+    Il flusso torna al punto 3 del flusso principale.
 
 **Note:**
 ---
-
-Regola di Business: I prodotti "Esauriti" possono essere mostrati o nascosti 

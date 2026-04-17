@@ -1,4 +1,4 @@
-# UC-03.2: UTILIZZO BARRA DI RICERCA
+# UC-03.2: RICERCA PER NOME PRODOTTO
 ---
 **Attori coinvolti:**
 ---
@@ -10,19 +10,19 @@ L'utente inserisce una stringa di testo libera per trovare prodotti che corrispo
 
 **Precondizioni:**
 ---
-1 - La barra di ricerca è visibile e attiva nell'header del sito.
+L'utente è nella pagina del catalogo
 
-2 - Flusso Principale degli Eventi:**
+**Flusso Principale degli Eventi:**
 
-3 - L'utente clicca sulla barra di ricerca e digita del testo.
+1 - L'utente clicca sulla barra di ricerca e digita del testo.
 
-4 - Il sistema esegue una query di ricerca (spesso di tipo LIKE o Full-text search).
+2 - Il sistema esegue una query di ricerca (spesso di tipo LIKE o Full-text search).
 
-5 - L'utente preme "Invio" o clicca sull'icona della lente.
+3 - L'utente preme "Invio" o clicca sull'icona della lente.
 
-6 - Il sistema reindirizza l'utente alla pagina dei risultati di ricerca.
+4 - Il sistema reindirizza l'utente alla pagina dei risultati di ricerca.
 
-7 - Il sistema evidenzia (opzionale) la parola chiave nei risultati trovati.
+5 - Il sistema evidenzia (opzionale) la parola chiave nei risultati trovati.
 
 **Postcondizioni:**
 ---
@@ -30,8 +30,23 @@ Il sistema mostra i prodotti ordinati per "rilevanza" rispetto alla stringa inse
 
 **Varianti / Estensioni:**
 ---
-V1: Suggerimenti Live: Il sistema mostra un menu a tendina con anteprime di prodotti mentre l'utente sta ancora scrivendo.
+### V1 Suggerimenti Live (Search-as-you-type):
+
+    Questa variante si attiva durante l'interazione nel punto 1 del flusso principale, prima che l'utente confermi la ricerca.
+
+    1 - L'utente inizia a digitare del testo nella barra di ricerca.
+
+    V1.1 Il sistema, dopo ogni carattere inserito (superata la soglia minima), invia una richiesta al server.
+
+    V1.2 Il sistema recupera risultati più rilevanti per nome.
+
+    V1.3 Il sistema apre un menu a tendina sotto la barra di ricerca mostrando i nomi simili.
+
+    V1.4 L'utente può cliccare direttamente su un suggerimento:
+
+    V1.4a Il sistema reindirizza l'utente direttamente alla scheda del prodotto (UC-04).
+
+    Se l'utente ignora i suggerimenti e preme invio, il flusso prosegue regolarmente al punto 4 del flusso principale.
 
 **Eccezioni / Flussi alternativi:**
 ---
-E1: Stringa troppo corta: L'utente inserisce solo 1 carattere; il sistema non avvia la ricerca per evitare sovraccarico.

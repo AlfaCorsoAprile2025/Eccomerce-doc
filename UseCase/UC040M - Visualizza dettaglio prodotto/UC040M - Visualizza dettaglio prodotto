@@ -10,7 +10,7 @@ L'utente desidera approfondire le informazioni su un articolo specifico selezion
 
 **Precondizioni:**
 ---
-L'utente ha individuato un prodotto di interesse nel catalogo (UC-030) o tramite ricerca (UC-030V2).
+L'utente ha individuato un prodotto di interesse nel catalogo (UC-030) o tramite ricerca (UC032/UC031).
 
 Il prodotto selezionato è presente nel database ed è disponibile.
 
@@ -24,13 +24,13 @@ Il prodotto selezionato è presente nel database ed è disponibile.
 
 5 - Il sistema visualizza la pagina di dettaglio mostrando:
 
-6 - Galleria immagini.
+ Galleria immagini.
 
-7 - Informazioni principali (Nome, Brand, Prezzo, Disponibilità).
+ Informazioni principali (Nome, Brand, Prezzo, Disponibilità).
 
-9 - Descrizione estesa e schede tecniche.
+ Descrizione estesa e schede tecniche.
 
-10 - Visualizza Pulsante "Aggiungi al carrello".
+ Visualizza Pulsante "Aggiungi al carrello".
 
 **Postcondizioni:**
 ---
@@ -43,9 +43,36 @@ Il sistema è pronto a ricevere il comando di inserimento nel carrello (UC-05).
 
 **Eccezioni / Flussi alternativi:**
 ---
-E1: Prodotto non trovato: Se l'ID del prodotto nell'URL non è valido o il prodotto è stato rimosso, il sistema mostra una pagina di errore 404 con un suggerimento per tornare al catalogo.
+### E1 Prodotto non trovato:
 
-E2: Prodotto Esaurito: Se lo stock è zero, il pulsante "Aggiungi al carrello" viene disabilitato o sostituito da "Avvisami quando disponibile".
+    L'eccezione si verifica al punto 2 del flusso principale, quando il puntamento al prodotto (tramite ID o slug nell'URL) non corrisponde a un record esistente.
+
+    1 - L'utente tenta di accedere alla scheda prodotto tramite un link diretto o un'anteprima obsoleta.
+
+    E1.1 - Il sistema riceve la richiesta e interroga il database per recuperare i dati del prodotto.
+
+    E1.2 - Il sistema rileva che l'ID non è presente nel database o che il prodotto è stato eliminato/nascosto.
+
+    E1.3 - Il sistema interrompe il caricamento dei dati previsto al punto 2.
+
+    E1.4 - Il sistema visualizza una pagina di errore 404 ("Prodotto non trovato") e fornisce un link per tornare al catalogo principale.
+
+
+### E2 Prodotto Esaurito (Stock zero):
+
+    L'eccezione si verifica al punto 3 del flusso principale, influenzando la visualizzazione finale della pagina.
+
+    3 - Il sistema effettua il controllo delle quantità residue nel magazzino per quel prodotto specifico.
+
+    E2.1 - Il sistema rileva che lo stock disponibile è pari a 0.
+
+    E2.2 - Il sistema recupera l'impostazione di visualizzazione per i prodotti esauriti.
+
+    E2.3 - Il sistema, al punto 7, mostra l'etichetta  "Esaurito" al posto della disponibilità standard.
+
+    E2.4 - Il sistema, al punto 10, disabilita il pulsante "Aggiungi al carrello" 
+
+    Il flusso prosegue regolarmente per i punti diversi da 10
 
 **Note:**
 ---

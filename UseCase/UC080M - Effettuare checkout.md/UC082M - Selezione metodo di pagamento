@@ -1,4 +1,4 @@
-# UC-08.2: SELEZIONE METODO DI PAGAMENTO
+# UC-082M: SELEZIONE METODO DI PAGAMENTO
 ---
 **Attori coinvolti:**
 ---
@@ -16,13 +16,13 @@ Il sistema ha visualizzato il totale finale dell'ordine.
 
 **Flusso Principale degli Eventi:**
 ---
-Il sistema visualizza l'elenco dei metodi di pagamento disponibili (es. Carta di Credito, PayPal, Bonifico Bancario, Contrassegno).
+1 - Il sistema visualizza l'elenco dei metodi di pagamento disponibili (es. Carta di Credito, PayPal, Bonifico Bancario, Contrassegno).
 
-L'utente seleziona l'opzione preferita.
+2 - L'utente seleziona l'opzione preferita.
 
-Il sistema visualizza eventuali costi aggiuntivi legati al metodo (es. commissioni per contrassegno).
+3 - Il sistema visualizza eventuali costi aggiuntivi legati al metodo (es. commissioni per contrassegno).
 
-L'utente accetta i termini di pagamento e clicca su "Procedi al Pagamento".
+4 - L'utente accetta i termini di pagamento e clicca su "Procedi al Pagamento".
 
 **Postcondizioni:**
 ---
@@ -30,4 +30,11 @@ Il metodo di pagamento è impostato e il sistema è pronto a contattare il gatew
 
 **Eccezioni / Flussi alternativi:**
 ---
-E1: Metodo non disponibile: Alcuni metodi (es. Contrassegno) potrebbero essere disabilitati per ordini sopra una certa cifra o per specifiche aree geografiche.
+### E1 Metodo non disponibile o limitato:
+    L'eccezione si verifica al punto 1 del flusso principale, quando il sistema filtra le opzioni di pagamento in base a regole di business (importo ordine, tipologia cliente o area geografica).
+
+    1 - Il sistema recupera l'elenco globale dei metodi di pagamento configurati.
+
+    E1.1 - Il sistema disabilita visivamente i metodi non idonei (es. rendendoli grigi e non cliccabili) oppure li occulta completamente dalla lista.
+
+    Il flusso prosegue regolarmente al punto 2 per i metodi rimasti attivi.

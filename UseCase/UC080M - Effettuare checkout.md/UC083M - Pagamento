@@ -1,4 +1,4 @@
-# UC-08.3: ESECUZIONE DEL PAGAMENTO
+# UC-083M: ESECUZIONE DEL PAGAMENTO
 ---
 **Attori coinvolti:**
 ---
@@ -20,23 +20,24 @@ Il sistema ha generato un ID transazione univoco.
 ---
 1 - Il sistema reindirizza l'utente sulla pagina protetta del Gateway (A2) o apre un frame crittografato.
 
-2 - L'utente inserisce i dati sensibili (es. numero carta, CVV).
+2 - L'utente inserisce i dati sensibili e clicca paga.
 
-3 - Il Gateway (A2) esegue la verifica (es. 3D Secure / OTP sul cellulare dell'utente).
-
-4 - Il Gateway elabora la transazione e invia un codice di esito (Success/Fail) al sistema ecommerce.
+3 - Il Gateway (A2) esegue la verifica.
 
 5 - Il sistema riceve l'esito:
 
-6 - Se positivo: convalida l'ordine.
-
-7 - Se negativo: riporta l'utente alla selezione del pagamento.
+6 - L'ordine viene convalidato
 
 **Postcondizioni:**
 ---
 In caso di successo, l'ordine passa allo stato "Pagato".
 
 In caso di fallimento, l'ordine rimane "In attesa" o "Annullato".
+
+**Eccezione:**
+--
+E1 Errore nel pagamento
+Vedere UC080M E1
 
 **Note:**
 ---

@@ -26,6 +26,47 @@ L'utente è autenticato e si trova nel pannello di gestione ordini.
 ---
 L'Admin visualizza i risultati della ricerca e può procedere alla gestione del singolo ordine.
 
+**Varianti / Estensioni:**
+---
+### V1 Filtro per Stato (Cliente/Admin):
+    Questa variante interviene al punto 2 del flusso principale per affinare la lista dei risultati.
+
+    2 - Il sistema interroga il database per recuperare gli ordini.
+
+    V1.1 - L'attore seleziona uno stato specifico dal menu a tendina o dai tab (es. "In lavorazione").
+
+    V1.2 - Il sistema aggiunge la condizione di stato alla query di ricerca.
+
+    V1.3 - Il sistema aggiorna la lista mostrando solo i record corrispondenti allo stato selezionato.
+
+    Il flusso prosegue regolarmente al punto 3.
+
+### V2 Ricerca Avanzata ( Admin):
+    Questa variante potenzia il punto 2 del flusso principale per le necessità gestionali dell'amministratore.
+
+    2 - Il sistema interroga il database applicando i filtri di visibilità.
+
+    V2.1 - L'Admin inserisce un parametro specifico (ID Ordine, Cognome Cliente o Email) nella barra di ricerca tecnica.
+
+    V2.2 - Il sistema esegue una ricerca globale ignorando i limiti di appartenenza utente.
+
+    V2.3 - Il sistema restituisce i risultati corrispondenti, inclusi gli ordini storici o archiviati.
+
+    Il flusso prosegue al punto 3.
+
+### V3 Ricerca Avanzata ( Utente):
+    Questa variante potenzia il punto 2 del flusso principale per le necessità gestionali dell'amministratore.
+
+    2 - Il sistema interroga il database applicando i filtri di visibilità.
+
+    V2.1 - L'Admin inserisce un parametro specifico (ID Ordine) nella barra di ricerca tecnica.
+
+    V2.2 - Il sistema esegue una ricerca globale ignorando i limiti di appartenenza utente.
+
+    V2.3 - Il sistema restituisce i risultati corrispondenti, inclusi gli ordini storici o archiviati.
+
+    Il flusso prosegue al punto 3.
+
 **Note:**
 ---
 Visibilità: A differenza dell'utente finale, l'Admin non ha restrizioni legate all'ID utente e può interrogare i dati di qualsiasi cliente registrato.
