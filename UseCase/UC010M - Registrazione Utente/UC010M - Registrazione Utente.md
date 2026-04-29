@@ -149,7 +149,7 @@ V1: Registrazione durante il Checkout: vedere UC084M
 ---
 La password deve essere salvata nel database esclusivamente in forma hashing con salt.
 
-**Dipendenze funzionali**
+### Dipendenze funzionali 
 
 Dipende da Authentication-Service,Api-Gateway, Storage e Mail-service
 
