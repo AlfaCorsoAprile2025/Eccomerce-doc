@@ -84,3 +84,8 @@ V1: Filtri Dinamici: I filtri cambiano in base alla categoria scelta
 
 **Note:**
 ---
+
+### Dipendenze funzionali 
+
+Dipende da Authentication-service, Catalog-Service, Api-Gateway e Storage.
+
