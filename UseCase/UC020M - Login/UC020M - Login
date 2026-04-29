@@ -110,3 +110,7 @@ V2: "Crea Account": L'utente può selezionare crea account e viene ridirezionato
 **Note:**
 ---
 Sicurezza: Dopo un numero definito di tentativi falliti (es. 5), il sistema deve bloccare temporaneamente l'accesso per quell'email o richiedere un CAPTCHA per prevenire attacchi brute-force.
+
+### Dipendenze funzionali 
+
+Dipende da Authentication-Service,Api-Gateway, Storage.
