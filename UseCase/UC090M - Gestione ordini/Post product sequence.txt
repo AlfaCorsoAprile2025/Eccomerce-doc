@@ -1,0 +1,17 @@
+title Post Order Sequence\n
+
+participant User
+participant Frontend
+participant Authentication Service
+participant Order Service
+participant RabbitMQ Broker
+participant Audit Service
+
+Authentication Service<-Frontend:Chiede ordini
+Authentication Service-->Frontend:Invia Ordini
+User<-Frontend:Mostra ordini e se \n è seller o admin tasto\n "aggiungi"
+User->Frontend:Clicca su aggiungi e\n compila form\n nuovo prodotto
+Frontend->Authentication Service:Valida token e \n controlla RBAC
+Order Service<-Authentication Service:POST
+RabbitMQ Broker<<-Order Service:Audit della POST
+Audit Service<<-RabbitMQ Broker:Audit della POST

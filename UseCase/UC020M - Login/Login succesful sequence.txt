@@ -1,0 +1,15 @@
+title Login succesful Sequence\n
+
+participant User
+participant Frontend
+participant Authentication Service
+participant RabbitMQ Broker
+participant Audit Service
+
+User<-Frontend:Mostra form per inserimento \n mail e password
+User->Frontend:Inserisce mail e password
+Frontend->Authentication Service:Valida le credenziali
+note over Authentication Service,RabbitMQ Broker
+Frontend<--Authentication Service:Assegna token
+RabbitMQ Broker<<-Authentication Service:Audit del login
+Audit Service<<-RabbitMQ Broker:Audit del login

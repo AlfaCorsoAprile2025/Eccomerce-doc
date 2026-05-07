@@ -1,0 +1,17 @@
+title Delete Product Sequence\n
+
+participant User
+participant Frontend
+participant Authentication Service
+participant Product Service
+participant RabbitMQ Broker
+participant Audit Service
+
+Authentication Service<-Frontend:Chiede ordini
+Authentication Service-->Frontend:Invia Ordini
+User<-Frontend:Mostra ordini con tasti \n dove user è owner 
+User->Frontend:Clicca su elimiina
+Frontend->Authentication Service:Valida token e \n controlla RBAC
+Product Service<-Authentication Service:DELETE
+RabbitMQ Broker<<-Product Service:Audit della delete
+Audit Service<<-RabbitMQ Broker:Audit della delete

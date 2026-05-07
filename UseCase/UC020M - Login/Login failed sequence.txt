@@ -1,0 +1,16 @@
+title Sign up Sequence\n
+
+participant User
+participant Frontend
+participant Authentication Service
+participant RabbitMQ Broker
+participant Audit Service
+
+User<-Frontend:Mostra form per inserimento \n informazioni
+User->Frontend:Inserisce informazioni
+Frontend->Authentication Service:Valida le credenziali
+note over Authentication Service,RabbitMQ Broker
+Frontend<--Authentication Service:Notifica la creazione \n di account temporaneo
+User<-Frontend:Mostra successo \n prima fase \n chiede otp
+RabbitMQ Broker<<-Authentication Service:Manda otp per mail service
+Audit Service<<-RabbitMQ Broker:Audit del login

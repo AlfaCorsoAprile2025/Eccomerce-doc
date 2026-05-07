@@ -1,0 +1,17 @@
+title Put Product Sequence\n
+
+participant User
+participant Frontend
+participant Authentication Service
+participant Order Service
+participant RabbitMQ Broker
+participant Audit Service
+
+Authentication Service<-Frontend:Chiede prodotti
+Authentication Service-->Frontend:Invia Prodotti\n
+User<-Frontend:Mostra prodotti e se owner\n tasto modifica
+User->Frontend:Clicca su modifica e\n compila form\n modifica prodotto
+Frontend->Authentication Service:Valida token e \n controlla RBAC
+Order Service<-Authentication Service:PUT
+RabbitMQ Broker<<-Order Service:Audit della PUT
+Audit Service<<-RabbitMQ Broker:Audit della PUT
